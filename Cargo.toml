@@ -1,6 +1,17 @@
 [package]
 name = "cryptcast"
 version = "0.1.0"
+authors = ["xTeKc <>"]
+description = "A decentralized podcast platform."
+categories = [""]
+homepage = "https://github.com/xTeKc/cryptcast"
+keywords = [
+    "",
+    ]
+repository = "https://github.com/xTeKc/cryptcast"
+readme = "README.md"
+license = "MPL-2.0"
+build = "build.rs"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
