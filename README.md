@@ -1,2 +1,2 @@
-# **Cryptcast**
+# **CryptCast**
 
