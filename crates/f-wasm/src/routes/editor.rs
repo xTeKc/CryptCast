@@ -6,31 +6,31 @@ use yew_router::prelude::*;
 
 use crate::components::list_errors::ListErrors;
 use crate::routes::AppRoute;
-use crate::services::articles::*;
-use crate::types::{ArticleCreateUpdateInfo, ArticleCreateUpdateInfoWrapper};
+use crate::services::podcasts::*;
+use crate::types::{PodcastCreateUpdateInfo, PodcastCreateUpdateInfoWrapper};
 
 #[derive(Properties, Clone, PartialEq)]
 pub struct Props {
     pub slug: Option<String>,
 }
 
-/// Create or update an article
+/// Create or update a podcast
 #[function_component(Editor)]
 pub fn editor(props: &Props) -> Html {
     let history = use_history().unwrap();
     let error = use_state(|| None);
-    let update_info = use_state(ArticleCreateUpdateInfo::default);
+    let update_info = use_state(PodcastCreateUpdateInfo::default);
     let tag_input = use_state(String::default);
-    let article_get = props
+    let podcast_get = props
         .slug
         .clone()
         .map(|slug| use_async(async move { get(slug).await }));
-    let article_update = {
+    let podcast_update = {
         let slug = props.slug.clone();
         let update_info = update_info.clone();
         use_async(async move {
-            let request = ArticleCreateUpdateInfoWrapper {
-                article: (*update_info).clone(),
+            let request = PodcastCreateUpdateInfoWrapper {
+                podcast: (*update_info).clone(),
             };
             if let Some(slug) = slug {
                 update(slug, request).await
@@ -41,12 +41,12 @@ pub fn editor(props: &Props) -> Html {
     };
 
     {
-        let article_get = article_get.clone();
+        let podcast_get = podcast_get.clone();
         use_effect_with_deps(
             move |slug| {
                 if slug.is_some() {
-                    if let Some(article_get) = article_get {
-                        article_get.run();
+                    if let Some(podcast_get) = podcast_get {
+                        podcast_get.run();
                     }
                 }
                 || ()
@@ -59,53 +59,53 @@ pub fn editor(props: &Props) -> Html {
         let update_info = update_info.clone();
         let error = error.clone();
         use_effect_with_deps(
-            move |article_get| {
-                if let Some(article_get) = article_get {
-                    if let Some(article_info) = &article_get.data {
-                        update_info.set(ArticleCreateUpdateInfo {
-                            title: article_info.article.title.clone(),
-                            description: article_info.article.description.clone(),
-                            body: article_info.article.body.clone(),
-                            tag_list: Some(article_info.article.tag_list.clone()),
+            move |podcast_get| {
+                if let Some(podcast_get) = podcast_get {
+                    if let Some(podcast_info) = &podcast_get.data {
+                        update_info.set(PodcastCreateUpdateInfo {
+                            title: podcast_info.podcast.title.clone(),
+                            description: podcast_info.podcast.description.clone(),
+                            body: podcast_info.podcast.body.clone(),
+                            tag_list: Some(podcast_info.podcast.tag_list.clone()),
                         });
                         error.set(None);
                     }
-                    if let Some(e) = &article_get.error {
+                    if let Some(e) = &podcast_get.error {
                         error.set(Some(e.clone()));
                     }
                 }
 
                 || ()
             },
-            article_get,
+            podcast_get,
         );
     }
 
     {
         let error = error.clone();
         use_effect_with_deps(
-            move |article_update| {
-                if let Some(article_info) = &article_update.data {
+            move |podcast_update| {
+                if let Some(podcast_info) = &podcast_update.data {
                     error.set(None);
-                    // Route to article detail page.
-                    history.push(AppRoute::Article {
-                        slug: article_info.article.slug.clone(),
+                    // Route to podcast detail page.
+                    history.push(AppRoute::Podcast {
+                        slug: podcast_info.podcast.slug.clone(),
                     });
                 }
-                if let Some(e) = &article_update.error {
+                if let Some(e) = &podcast_update.error {
                     error.set(Some(e.clone()));
                 }
                 || ()
             },
-            article_update.clone(),
+            podcast_update.clone(),
         );
     }
 
     let onsubmit = {
-        let article_update = article_update.clone();
+        let podcast_update = podcast_update.clone();
         Callback::from(move |e: FocusEvent| {
             e.prevent_default(); /* Prevent event propagation */
-            article_update.run();
+            podcast_update.run();
         })
     };
     let oninput_title = {
@@ -183,7 +183,7 @@ pub fn editor(props: &Props) -> Html {
                                     <input
                                         class="form-control form-control-lg"
                                         type="text"
-                                        placeholder="Article Title"
+                                        placeholder="Podcast Title"
                                         value={update_info.title.clone()}
                                         oninput={oninput_title} />
                                 </fieldset>
@@ -191,7 +191,7 @@ pub fn editor(props: &Props) -> Html {
                                     <input
                                         class="form-control"
                                         type="text"
-                                        placeholder="What's this article about?"
+                                        placeholder="What's this podcast about?"
                                         value={update_info.description.clone()}
                                         oninput={oninput_description} />
                                 </fieldset>
@@ -199,7 +199,7 @@ pub fn editor(props: &Props) -> Html {
                                     <textarea
                                         class="form-control"
                                         rows="8"
-                                        placeholder="Write your article (in markdown)"
+                                        placeholder="Write your podcast (in markdown)"
                                         value={update_info.body.clone()}
                                         oninput={oninput_body} >
                                     </textarea>
@@ -247,8 +247,8 @@ pub fn editor(props: &Props) -> Html {
                                 <button
                                     class="btn btn-lg pull-xs-right btn-primary"
                                     type="submit"
-                                    disabled={article_update.loading}>
-                                    { "Publish Article" }
+                                    disabled={podcast_update.loading}>
+                                    { "Publish Podcast" }
                                 </button>
                             </fieldset>
                         </form>

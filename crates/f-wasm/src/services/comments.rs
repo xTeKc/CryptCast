@@ -7,16 +7,16 @@ pub async fn create(
     comment: CommentCreateInfoWrapper,
 ) -> Result<CommentInfoWrapper, Error> {
     request_post::<CommentCreateInfoWrapper, CommentInfoWrapper>(
-        format!("/articles/{}/comments", slug),
+        format!("/podcasts/{}/comments", slug),
         comment,
     )
     .await
 }
 
 pub async fn delete(slug: String, comment_id: u32) -> Result<DeleteWrapper, Error> {
-    request_delete::<DeleteWrapper>(format!("/articles/{}/comments/{}", slug, comment_id)).await
+    request_delete::<DeleteWrapper>(format!("/podcasts/{}/comments/{}", slug, comment_id)).await
 }
 
-pub async fn for_article(slug: String) -> Result<CommentListInfo, Error> {
-    request_get::<CommentListInfo>(format!("/articles/{}/comments", slug)).await
+pub async fn for_podcast(slug: String) -> Result<CommentListInfo, Error> {
+    request_get::<CommentListInfo>(format!("/podcasts/{}/comments", slug)).await
 }

@@ -1,6 +1,6 @@
 //! Routes by yew_router
 
-pub mod article;
+pub mod podcast;
 pub mod editor;
 pub mod home;
 pub mod login;
@@ -11,7 +11,7 @@ pub mod settings;
 use yew::prelude::*;
 use yew_router::prelude::*;
 
-use article::Article;
+use podcast::Podcast;
 use editor::Editor;
 use home::Home;
 use login::Login;
@@ -30,8 +30,8 @@ pub enum AppRoute {
     Editor { slug: String },
     #[at("/editor")]
     EditorCreate,
-    #[at("/article/:slug")]
-    Article { slug: String },
+    #[at("/podcast/:slug")]
+    Podcast { slug: String },
     #[at("/settings")]
     Settings,
     #[at("/:username/favorites")]
@@ -52,7 +52,7 @@ pub fn switch(route: &AppRoute) -> Html {
         AppRoute::Home => html! {<Home />},
         AppRoute::Editor { slug } => html! {<Editor slug={Some(slug.clone())}/>},
         AppRoute::EditorCreate => html! {<Editor />},
-        AppRoute::Article { slug } => html! {<Article slug={slug.clone()} />},
+        AppRoute::Podcast { slug } => html! {<Podcast slug={slug.clone()} />},
         AppRoute::Settings => html! {<Settings />},
         AppRoute::ProfileFavorites { username } => html! {
             <Profile username={username.clone()} tab={ProfileTab::FavoritedBy} />

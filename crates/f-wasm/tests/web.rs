@@ -10,17 +10,17 @@ use wasm::app::App as YewApp;
 use yew::start_app;
 
 #[wasm_bindgen_test]
-async fn home_page_has_articles() {
+async fn home_page_has_podcasts() {
     start_app::<YewApp>();
 
-    let articles = gloo_utils::document().get_elements_by_class_name("article-preview");
+    let podcasts = gloo_utils::document().get_elements_by_class_name("podcast-preview");
 
-    console_log!("Initial articles length: {}", articles.length());
-    assert_eq!(articles.length(), 1);
+    console_log!("Initial podcasts length: {}", podcasts.length());
+    assert_eq!(podcasts.length(), 1);
 
-    console_log!("Waiting for articles to load.");
+    console_log!("Waiting for podcasts to load.");
     Timeout::new(Duration::new(10, 0)).await;
 
-    // console_log!("Loaded articles length: {}", articles.length());
-    // assert_eq!(articles.length(), 10);
+    // console_log!("Loaded podcasts length: {}", podcasts.length());
+    // assert_eq!(podcasts.length(), 10);
 }

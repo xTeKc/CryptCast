@@ -1,6 +1,6 @@
 //! Api requests via yew FetchService
 
-pub mod articles;
+pub mod podcasts;
 pub mod auth;
 pub mod comments;
 pub mod profiles;

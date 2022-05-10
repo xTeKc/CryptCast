@@ -2,7 +2,7 @@ use yew::prelude::*;
 use yew_hooks::use_async;
 use yew_router::prelude::*;
 
-use crate::components::article_list::{ArticleList, ArticleListFilter};
+use crate::components::podcast_list::{PodcastList, PodcastListFilter};
 use crate::hooks::use_user_context;
 use crate::routes::AppRoute;
 use crate::services::profiles::*;
@@ -132,20 +132,20 @@ pub fn profile(props: &Props) -> Html {
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-12 col-md-10 offset-md-1">
-                            <div class="articles-toggle">
+                            <div class="podcasts-toggle">
                                 <ul class="nav nav-pills outline-active">
                                     <li class="nav-item">
                                         <Link<AppRoute>
                                             classes={classes_tab.0}
                                             to={AppRoute::Profile { username: profile.username.clone() }}>
-                                            { "My Articles" }
+                                            { "My Podcasts" }
                                         </Link<AppRoute>>
                                     </li>
                                     <li class="nav-item">
                                         <Link<AppRoute>
                                             classes={classes_tab.1}
                                             to={AppRoute::ProfileFavorites { username: profile.username.clone() }}>
-                                            { "Favorited Articles" }
+                                            { "Favorited Podcasts" }
                                         </Link<AppRoute>>
                                     </li>
                                 </ul>
@@ -153,10 +153,10 @@ pub fn profile(props: &Props) -> Html {
                             {
                                 match props.tab {
                                     ProfileTab::ByAuthor => {
-                                        html! { <ArticleList filter={ArticleListFilter::ByAuthor(profile.username.clone())} /> }
+                                        html! { <PodcastList filter={PodcastListFilter::ByAuthor(profile.username.clone())} /> }
                                     }
                                     ProfileTab::FavoritedBy => {
-                                        html! { <ArticleList filter={ArticleListFilter::FavoritedBy(profile.username.clone())} /> }
+                                        html! { <PodcastList filter={PodcastListFilter::FavoritedBy(profile.username.clone())} /> }
                                     }
                                 }
                             }

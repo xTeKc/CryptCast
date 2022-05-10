@@ -1,6 +1,6 @@
 //! Common types
 
-mod articles;
+mod podcasts;
 mod auth;
 mod comments;
 mod profiles;
@@ -9,9 +9,9 @@ mod tags;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
-pub use articles::{
-    ArticleCreateUpdateInfo, ArticleCreateUpdateInfoWrapper, ArticleInfo, ArticleInfoWrapper,
-    ArticleListInfo,
+pub use podcasts::{
+    PodcastCreateUpdateInfo, PodcastCreateUpdateInfoWrapper, PodcastInfo, PodcastInfoWrapper,
+    PodcastListInfo,
 };
 pub use auth::{
     LoginInfo, LoginInfoWrapper, RegisterInfo, RegisterInfoWrapper, UserInfo, UserInfoWrapper,

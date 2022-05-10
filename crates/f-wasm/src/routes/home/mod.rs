@@ -8,7 +8,7 @@ use banner::Banner;
 use main_view::MainView;
 use tags::Tags;
 
-/// Home page with an article list and a tag list.
+/// Home page with a podcast list and a tag list.
 #[function_component(Home)]
 pub fn home() -> Html {
     let tag = use_state(|| None);

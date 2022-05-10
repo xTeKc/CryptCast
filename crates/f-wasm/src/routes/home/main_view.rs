@@ -1,6 +1,6 @@
 use yew::prelude::*;
 
-use crate::components::article_list::{ArticleList, ArticleListFilter};
+use crate::components::podcast_list::{PodcastList, PodcastListFilter};
 use crate::hooks::use_user_context;
 
 #[derive(Properties, Clone, PartialEq)]
@@ -15,7 +15,7 @@ pub enum Tab {
     Tag,
 }
 
-/// Main content with tabs of article list for home page
+/// Main content with tabs of podcast list for home page
 #[function_component(MainView)]
 pub fn main_view(props: &Props) -> Html {
     let user_ctx = use_user_context();
@@ -29,9 +29,9 @@ pub fn main_view(props: &Props) -> Html {
 
     let filter = use_state(|| {
         if user_ctx.is_authenticated() {
-            ArticleListFilter::Feed
+            PodcastListFilter::Feed
         } else {
-            ArticleListFilter::All
+            PodcastListFilter::All
         }
     });
 
@@ -42,7 +42,7 @@ pub fn main_view(props: &Props) -> Html {
             move |tag| {
                 if let Some(tag) = &tag {
                     tab.set(Tab::Tag);
-                    filter.set(ArticleListFilter::ByTag(tag.clone()));
+                    filter.set(PodcastListFilter::ByTag(tag.clone()));
                 }
                 || ()
             },
@@ -55,11 +55,11 @@ pub fn main_view(props: &Props) -> Html {
         use_effect_with_deps(
             move |(tab, tag)| {
                 match tab {
-                    Tab::Feed => filter.set(ArticleListFilter::Feed),
-                    Tab::All => filter.set(ArticleListFilter::All),
+                    Tab::Feed => filter.set(PodcastListFilter::Feed),
+                    Tab::All => filter.set(PodcastListFilter::All),
                     Tab::Tag => {
                         if let Some(tag) = tag {
-                            filter.set(ArticleListFilter::ByTag(tag.clone()));
+                            filter.set(PodcastListFilter::ByTag(tag.clone()));
                         }
                     }
                 }
@@ -85,7 +85,7 @@ pub fn main_view(props: &Props) -> Html {
                 </ul>
             </div>
 
-            <ArticleList filter={(*filter).clone()} />
+            <PodcastList filter={(*filter).clone()} />
         </div>
     }
 }
