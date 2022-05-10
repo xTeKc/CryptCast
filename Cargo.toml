@@ -1,0 +1,9 @@
+[workspace]
+members = [
+    "crates/b-tauri",
+    "crates/f-wasm",
+]
+
+[profile.release]
+lto = true
+opt-level = 'z'
