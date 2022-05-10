@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "scripts": {
+    "install": "cd crates/f-wasm && npm install",
+    "build": "cd crates/f-wasm && npm run build",
+    "start": "cd crates/f-wasm && npm start",
+    "test": "cd crates/f-wasm && npm run test"
+  }
+}
