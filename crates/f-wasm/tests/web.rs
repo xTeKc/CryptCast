@@ -6,7 +6,7 @@ use wasm_bindgen_test::*;
 
 wasm_bindgen_test_configure!(run_in_browser);
 
-use wasm::app::App as YewApp;
+use f_wasm::app::App as YewApp;
 use yew::start_app;
 
 #[wasm_bindgen_test]
