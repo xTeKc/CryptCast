@@ -59,7 +59,7 @@ pub async fn update(
 ) -> Result<PodcastInfoWrapper, Error> {
     request_put::<PodcastCreateUpdateInfoWrapper, PodcastInfoWrapper>(
         format!("/podcasts/{}", slug),
-        Podcast,
+        podcast,
     )
     .await
 }
